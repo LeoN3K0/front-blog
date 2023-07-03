@@ -8,6 +8,8 @@ import NotFoundPage from "./404ErrorPage";
 import Login from "./Login";
 import Blogs from "./Blogs";
 import CreateBlog from "./CreateBlog";
+import EditBlog from "./EditBlog";
+import BlogPost from "./BlogPost";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/blogs" element={<Blogs/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/createblog" element={<CreateBlog/>} />
+          <Route path="/editblog" element={<EditBlog/>} />
+          <Route path="/blogpost" element={<BlogPost/>} />
           <Route path="/*" element={<NotFoundPage/>} />
         </Routes>
         </ThemeProvider>
