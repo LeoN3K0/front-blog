@@ -47,3 +47,15 @@ export const FormLink = styled(Link)`
   }
 `;
 
+export const ErrorMessage = styled('div')`
+  color: red;
+  font-size: 12px;
+  margin-bottom: 8px;
+`;
+
+export const SuccessMessage = styled('div')`
+  color: green;
+  font-size: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+`;

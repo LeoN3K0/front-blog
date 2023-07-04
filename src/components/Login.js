@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   LoginPageContainer,
   LoginCard,
@@ -7,44 +8,154 @@ import {
   Form,
   FormField,
   FormAction,
-  FormLink
+  FormLink,
+  ErrorMessage,
+  SuccessMessage
 } from './styledcomps/loginStyles';
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [formErrors, setFormErrors] = useState({});
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
 
   const handleRegisterLinkClick = () => {
     setIsRegister(!isRegister);
+    setFormErrors({});
+    setIsRegistrationSuccess(false); // Reset registration success message when switching between register/login
+  };
+
+  const handleRegister = () => {
+    // Validate form inputs
+    const errors = {};
+    if (!email) {
+      errors.email = 'Please enter an email.';
+    }
+    if (!username) {
+      errors.username = 'Please enter a username.';
+    }
+    if (!password) {
+      errors.password = 'Please enter a password.';
+    }
+    if (password.length < 6) {
+      errors.password = 'Password must be at least 6 characters long.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    const requestData = {
+      email: email,
+      username: username,
+      password: password
+    };
+
+    axios
+      .post('http://localhost:3000/register', requestData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        // Reset form fields on successful registration
+        setEmail('');
+        setUsername('');
+        setPassword('');
+        setFormErrors({});
+        setIsRegistrationSuccess(true);
+      })
+      .catch(error => {
+        console.log(error);
+        setFormErrors({ general: 'Unable to register.' });
+      });
+  };
+
+  const handleLogin = () => {
+    // Implement login functionality
   };
 
   return (
     <LoginPageContainer>
       <LoginCard>
         <CardContentWrapper>
-          {isRegister ? (
+          {isRegistrationSuccess ? (
             <>
-              <FormTitle>Register</FormTitle>
-              <Form>
-                <FormField label="Name" variant="outlined" />
-                <FormField label="Email" variant="outlined" />
-                <FormField label="Password" variant="outlined" type="password" />
-                <FormAction variant="contained" color="primary">
-                  Register
-                </FormAction>
-                <FormLink onClick={handleRegisterLinkClick}>Already have an account? Login here.</FormLink>
-              </Form>
+              <SuccessMessage>Registration Successful!</SuccessMessage>
+              <FormAction variant="contained" color="primary" onClick={handleRegisterLinkClick}>
+                Go back to Login
+              </FormAction>
             </>
           ) : (
             <>
-              <FormTitle>Login</FormTitle>
-              <Form>
-                <FormField label="Email" variant="outlined" />
-                <FormField label="Password" variant="outlined" type="password" />
-                <FormAction variant="contained" color="primary">
-                  Login
-                </FormAction>
-                <FormLink onClick={handleRegisterLinkClick}>Don't have an account? Register here.</FormLink>
-              </Form>
+              {isRegister ? (
+                <>
+                  <FormTitle>Register</FormTitle>
+                  <Form>
+                    <FormField
+                      label="Username"
+                      variant="outlined"
+                      value={username}
+                      onChange={e => setUsername(e.target.value)}
+                      error={Boolean(formErrors.username)}
+                    />
+                    {formErrors.username && <ErrorMessage>{formErrors.username}</ErrorMessage>}
+                    <FormField
+                      label="Email"
+                      variant="outlined"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      error={Boolean(formErrors.email)}
+                    />
+                    {formErrors.email && <ErrorMessage>{formErrors.email}</ErrorMessage>}
+                    <FormField
+                      label="Password"
+                      variant="outlined"
+                      type="password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      error={Boolean(formErrors.password)}
+                    />
+                    {formErrors.password && <ErrorMessage>{formErrors.password}</ErrorMessage>}
+                    <FormAction variant="contained" color="primary" onClick={handleRegister}>
+                      Register
+                    </FormAction>
+                    <FormLink onClick={handleRegisterLinkClick}>Already have an account? Login here.</FormLink>
+                  </Form>
+                </>
+              ) : (
+                <>
+                  <FormTitle>Login</FormTitle>
+                  <Form>
+                    <FormField
+                      label="Email"
+                      variant="outlined"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      error={Boolean(formErrors.email)}
+                    />
+                    {formErrors.email && <ErrorMessage>{formErrors.email}</ErrorMessage>}
+                    <FormField
+                      label="Password"
+                      variant="outlined"
+                      type="password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      error={Boolean(formErrors.password)}
+                    />
+                    {formErrors.password && <ErrorMessage>{formErrors.password}</ErrorMessage>}
+                    <FormAction variant="contained" color="primary" onClick={handleLogin}>
+                      Login
+                    </FormAction>
+                    <FormLink onClick={handleRegisterLinkClick}>Don't have an account? Register here.</FormLink>
+                  </Form>
+                </>
+              )}
+              {formErrors.general && <ErrorMessage>{formErrors.general}</ErrorMessage>}
             </>
           )}
         </CardContentWrapper>
