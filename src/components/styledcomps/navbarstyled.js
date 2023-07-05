@@ -78,3 +78,11 @@ export const StyledListItemText = styled(ListItemText)`
   }
 `;
 
+export const StyledUserNameLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.theme.palette.common.white};
+  &:hover {
+    color: #ccc;
+  }
+`;
+

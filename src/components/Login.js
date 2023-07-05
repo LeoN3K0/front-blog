@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useAuth } from '../AuthContext';
 import {
   LoginPageContainer,
   LoginCard,
@@ -14,12 +17,14 @@ import {
 } from './styledcomps/loginStyles';
 
 const Login = () => {
+  let navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+  const { setIsLoggedIn } = useAuth();
 
   const handleRegisterLinkClick = () => {
     setIsRegister(!isRegister);
@@ -76,7 +81,45 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    // Implement login functionality
+    // Validate form inputs
+    const errors = {};
+    if (!username && !email) {
+      errors.usernameOrEmail = 'Please enter a username or email.';
+    }
+    if (!password) {
+      errors.password = 'Please enter a password.';
+    }
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+  
+    const requestData = {
+      usernameOrEmail: username || email,
+      password: password
+    };
+  
+    axios
+      .post('http://localhost:3000/signin', requestData, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => {
+        const token = response.data.token;
+        Cookies.set('jwt', token, { sameSite: 'none', secure: true, expires: 7 });
+        // Reset form fields on successful login
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setFormErrors({});
+        setIsLoggedIn(true);
+        navigate("/");
+      })
+      .catch(error => {
+        console.log(error);
+        setFormErrors({ general: 'Wrong credentials.' });
+      });
   };
 
   return (
@@ -132,13 +175,16 @@ const Login = () => {
                   <FormTitle>Login</FormTitle>
                   <Form>
                     <FormField
-                      label="Email"
+                      label="Username or Email"
                       variant="outlined"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      error={Boolean(formErrors.email)}
+                      value={username || email}
+                      onChange={e => {
+                        setUsername(e.target.value);
+                        setEmail(e.target.value);
+                      }}
+                      error={Boolean(formErrors.usernameOrEmail)}
                     />
-                    {formErrors.email && <ErrorMessage>{formErrors.email}</ErrorMessage>}
+                    {formErrors.usernameOrEmail && <ErrorMessage>{formErrors.usernameOrEmail}</ErrorMessage>}
                     <FormField
                       label="Password"
                       variant="outlined"
