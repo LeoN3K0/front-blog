@@ -115,6 +115,7 @@ const Login = () => {
         setFormErrors({});
         setIsLoggedIn(true);
         navigate("/");
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);

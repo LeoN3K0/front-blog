@@ -24,8 +24,7 @@ import {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
-  const [userName, setUserName] = useState('');
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
 
   const handleDrawerOpen = () => {
     setIsOpen(true);
@@ -35,19 +34,24 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  const handleLogout = () => {
-    // Clear the token stored in the cookie
-    Cookies.remove('jwt', { sameSite: 'none', secure: true});
-    // Perform the logout logic here
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    try {
+      await axios.post('http://localhost:3000/logout');
+
+      // Clear the token stored in the cookie
+      Cookies.remove('jwt');
+
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const token = Cookies.get('jwt');
-  
-      if (token && isLoggedIn) { // Check if user is logged in
-        try {
+    const fetchUserName = async () => {
+      try {
+        const token = Cookies.get('jwt');
+        if (token) {
           const response = await axios.post(
             'http://localhost:3000/verifyToken',
             { token },
@@ -59,19 +63,17 @@ const Navbar = () => {
           );
           setUserName(response.data.username);
           setIsLoggedIn(true);
-        } catch (error) {
-          console.log(error);
+        } else {
           setIsLoggedIn(false);
-          setUserName('');
         }
-      } else {
+      } catch (error) {
+        console.log(error);
         setIsLoggedIn(false);
-        setUserName('');
       }
     };
-  
-    checkLoginStatus();
-  }, [isLoggedIn, setIsLoggedIn]);
+
+    fetchUserName();
+  }, [setIsLoggedIn, setUserName]);
 
   return (
     <>
@@ -137,7 +139,7 @@ const Navbar = () => {
         </Toolbar>
       </StyledAppBar>
     </>
-  );  
+  );
 };
 
 export default Navbar;

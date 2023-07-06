@@ -1,8 +1,11 @@
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/system';
+import { Button } from '@mui/material';
 
 export const HomeContainer = styled('div')`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-top: 40px;
 `;
 
@@ -10,7 +13,7 @@ export const CardContainer = styled('div')`
   display: flex;
   align-items: flex-start;
   padding: 16px;
-  margin: 0 16px; 
+  margin: 0 16px;
   border: 1px solid ${({ theme }) => theme.palette.grey[300]};
   border-radius: 4px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -62,5 +65,21 @@ export const RecentPostsListItemLink = styled('a')`
 
   &:hover {
     color: ${({ theme }) => theme.palette.secondary.main};
+  }
+`;
+
+export const ButtonContainer = styled('div')`
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: 16px;
+`;
+
+export const CreateBlogPostButton = styled(Button)`
+  background-color: ${({ theme }) => theme.palette.secondary.main};
+  color: ${({ theme }) => theme.palette.common.white};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.secondary.dark};
   }
 `;

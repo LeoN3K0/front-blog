@@ -10,6 +10,7 @@ import Blogs from "./Blogs";
 import CreateBlog from "./CreateBlog";
 import EditBlog from "./EditBlog";
 import BlogPost from "./BlogPost";
+import Profile from "./Profile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/createblog" element={<CreateBlog/>} />
           <Route path="/editblog" element={<EditBlog/>} />
           <Route path="/blogpost" element={<BlogPost/>} />
+          <Route path="/profile" element={<Profile/>} />
           <Route path="/*" element={<NotFoundPage/>} />
         </Routes>
         </ThemeProvider>
