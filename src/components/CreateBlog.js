@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { CreateBlogContainer, CreateBlogCard, CreateBlogForm, FormTitle, FormLabel, FormInput, FormButton, EditorContainer } from './styledcomps/createBlogStyles';
+import Editor from './Editor';
+import Preview from './BlogPreview';
+import {
+  CreateBlogContainer,
+  CreateBlogCard,
+  CreateBlogForm,
+  FormTitle,
+  FormLabel,
+  FormInput,
+  ButtonContainer,
+  SaveButton,
+  PublishButton,
+} from './styledcomps/createBlogStyles';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
@@ -11,64 +21,54 @@ const CreateBlog = () => {
     setTitle(e.target.value);
   };
 
-  const handleBodyChange = (contentState) => {
-    setBody(contentState);
+  const handleBodyChange = (value) => {
+    setBody(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSaveDraft = (e) => {
     e.preventDefault();
-    // Logic for submitting the blog post
+    // Logic for saving the blog post as a draft
     console.log('Title:', title);
     console.log('Body:', body);
+    console.log('Published:', false);
+  };
+
+  const handlePublish = (e) => {
+    e.preventDefault();
+    // Logic for publishing the blog post
+    console.log('Title:', title);
+    console.log('Body:', body);
+    console.log('Published:', false);
   };
 
   return (
     <CreateBlogContainer>
       <CreateBlogCard>
         <FormTitle>Create Blog Post</FormTitle>
-        <CreateBlogForm onSubmit={handleSubmit}>
+        <CreateBlogForm>
           <div>
             <FormLabel>Title:</FormLabel>
             <FormInput type="text" value={title} onChange={handleTitleChange} />
           </div>
           <div>
             <FormLabel>Body:</FormLabel>
-            <EditorContainer>
-              <Editor
-                editorState={body}
-                onEditorStateChange={handleBodyChange}
-                toolbar={{
-                  options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image'],
-                  inline: {
-                    options: ['bold', 'italic', 'underline'],
-                  },
-                  blockType: {
-                    options: ['Normal', 'H1', 'H2', 'H3'],
-                  },
-                  list: {
-                    options: ['unordered', 'ordered'],
-                  },
-                  textAlign: {
-                    options: ['left', 'center', 'right'],
-                  },
-                  link: {
-                    popupClassName: 'link-popup',
-                  },
-                  /*image: {
-                    uploadEnabled: true,
-                    uploadCallback: handleImageUpload, // Implement your image upload logic here
-                    alt: { present: true, mandatory: true },
-                  },*/
-                }}
-                placeholder="Write your blog content..."
-              />
-            </EditorContainer>
+            <Editor value={body} onChange={handleBodyChange} placeholder="Write your blog content..." />
           </div>
-          <FormButton type="submit">Submit</FormButton>
+          <ButtonContainer>
+            <div>
+              <SaveButton onClick={handleSaveDraft}>
+                Save Draft
+              </SaveButton>
+            </div>
+            <div>
+              <PublishButton onClick={handlePublish}>Publish</PublishButton>
+            </div>
+          </ButtonContainer>
         </CreateBlogForm>
       </CreateBlogCard>
+      <Preview title={title} body={body}/>
     </CreateBlogContainer>
-  );
+  );  
 };
 
 export default CreateBlog;

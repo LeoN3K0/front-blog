@@ -1,5 +1,11 @@
-import { styled } from '@mui/system';
-import { Button } from '@mui/material';
+import styled from 'styled-components';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Link from '@mui/material/Link';
 
 export const HomeContainer = styled('div')`
   display: flex;
@@ -9,7 +15,7 @@ export const HomeContainer = styled('div')`
   margin-top: 40px;
 `;
 
-export const CardContainer = styled('div')`
+export const CardContainer = styled(Card)`
   display: flex;
   align-items: flex-start;
   padding: 16px;
@@ -30,36 +36,34 @@ export const RightSection = styled('div')`
   border-left: 1px solid ${({ theme }) => theme.palette.grey[300]};
 `;
 
-export const RecentPostTitle = styled('h2')`
+export const RecentPostTitle = styled(Typography)`
   margin: 0 0 16px;
 `;
 
-export const RecentPostContent = styled('p')`
+export const RecentPostContent = styled(Typography)`
   margin: 0;
   color: ${({ theme }) => theme.palette.text.secondary};
 `;
 
-export const RecentPostsList = styled('ul')`
+export const RecentPostsList = styled(List)`
   padding: 0;
   margin: 0;
   list-style: none;
 `;
 
-export const ListTitle = styled('h3')`
+export const ListTitle = styled(Typography)`
   margin-bottom: 8px;
 `;
 
-export const ListSeparator = styled('hr')`
+export const ListSeparator = styled(Divider)`
   margin: 16px 0;
-  border: none;
-  border-top: 1px solid ${({ theme }) => theme.palette.grey[300]};
 `;
 
-export const RecentPostsListItem = styled('li')`
+export const RecentPostsListItem = styled(ListItem)`
   margin-bottom: 8px;
 `;
 
-export const RecentPostsListItemLink = styled('a')`
+export const RecentPostsListItemLink = styled(Link)`
   color: ${({ theme }) => theme.palette.text.secondary};
   text-decoration: none;
 

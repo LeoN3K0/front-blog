@@ -3,13 +3,14 @@ import { ThemeProvider } from '@mui/material';
 import { HomeContainer, CardContainer, LeftSection, RightSection, RecentPostTitle, RecentPostContent, RecentPostsList, ListTitle, ListSeparator, RecentPostsListItem, RecentPostsListItemLink, CreateBlogPostButton, ButtonContainer } from './styledcomps/homeStyles';
 import theme from '../themes/theme';
 import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleCreateBlogPost = () => {
-    // Handle create blog post button click
-    // Redirect to the create blog post page
+    navigate('/createblog');
   };
 
   return (

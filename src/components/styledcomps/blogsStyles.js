@@ -1,5 +1,10 @@
-import { styled } from '@mui/material/styles';
+import styled from 'styled-components';
 import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 export const MainCard = styled(Card)`
   && {
@@ -21,29 +26,25 @@ export const BlogsContainer = styled('div')`
   margin-top: 16px;
 `;
 
-export const SearchBar = styled('input')`
+export const SearchBar = styled(TextField)`
   width: 300px;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.palette.grey[300]};
   margin-bottom: 16px;
 `;
 
-export const BlogList = styled('ul')`
+export const BlogList = styled(List)`
   padding: 0;
   margin: 0;
-  list-style: none;
 `;
 
-export const BlogListItem = styled('li')`
+export const BlogListItem = styled(ListItem)`
   margin-bottom: 8px;
 `;
 
-export const BlogTitle = styled('h2')`
+export const BlogTitle = styled(ListItemText)`
   margin: 0;
 `;
 
-export const BlogDate = styled('p')`
+export const BlogDate = styled(Typography)`
   margin: 0;
   color: ${({ theme }) => theme.palette.text.secondary};
 `;

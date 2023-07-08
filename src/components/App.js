@@ -11,8 +11,11 @@ import CreateBlog from "./CreateBlog";
 import EditBlog from "./EditBlog";
 import BlogPost from "./BlogPost";
 import Profile from "./Profile";
+import { useAuth } from "../AuthContext";
 
 function App() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <div>
       <BrowserRouter> 
@@ -22,8 +25,12 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/blogs" element={<Blogs/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/createblog" element={<CreateBlog/>} />
-          <Route path="/editblog" element={<EditBlog/>} />
+          {isLoggedIn && (
+            <>
+              <Route path="/createblog" element={<CreateBlog/>} />
+              <Route path="/editblog" element={<EditBlog/>} />
+            </>
+          )}
           <Route path="/blogpost" element={<BlogPost/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/*" element={<NotFoundPage/>} />

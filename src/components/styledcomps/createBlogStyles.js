@@ -1,63 +1,89 @@
 import styled from 'styled-components';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
-export const CreateBlogContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const CreateBlogContainer = styled(Grid)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  justify-items: center;
+  align-items: flex-start;
   height: 100vh;
+  padding: 20px;
 `;
 
-export const CreateBlogCard = styled.div`
-  width: 80%;
+export const CreateBlogCard = styled(Card)`
+  width: 100%;
+  height: 550px;
   max-width: 600px;
-  padding: 40px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 `;
 
-export const CreateBlogForm = styled.form`
-  margin-top: 20px;
+export const CreateBlogForm = styled('form')`
+  margin-top: 5px;
 `;
 
-export const FormTitle = styled.h1`
+export const FormTitle = styled(Typography)`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 `;
 
-export const FormLabel = styled.label`
+export const FormLabel = styled(Typography)`
   display: block;
   font-size: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 `;
 
-export const FormInput = styled.input`
+export const FormInput = styled(TextField)`
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
+  margin-bottom: 6px;
 `;
 
-export const FormButton = styled.button`
+export const SaveButton = styled(Button)`
   display: block;
   margin-top: 20px;
   padding: 12px 24px;
-  background-color: #007bff;
+  background-color: ${({ theme }) => theme.palette.secondary.main};
   color: #fff;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.secondary.dark};
+  }
 `;
 
-export const EditorContainer = styled.div`
-  margin-top: 10px;
-  .rdw-editor-main {
-    min-height: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
+export const PublishButton = styled(Button)`
+  display: block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.primary.dark};
   }
+`;
+
+export const ButtonContainer = styled('div')`
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 `;

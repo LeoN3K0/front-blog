@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditBlogContainer, EditBlogCard, EditBlogForm, FormTitle, FormLabel, FormInput, FormButton, EditorContainer, DeleteButton } from './styledcomps/editBlogStyles';
 
 const EditBlog = () => {
   const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [body, /*setBody*/] = useState('');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
-  const handleBodyChange = (contentState) => {
+  /*const handleBodyChange = (contentState) => {
     setBody(contentState);
-  };
+  };*/
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,29 +37,6 @@ const EditBlog = () => {
           <div>
             <FormLabel>Body:</FormLabel>
             <EditorContainer>
-              <Editor
-                editorState={body}
-                onEditorStateChange={handleBodyChange}
-                toolbar={{
-                  options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image'],
-                  inline: {
-                    options: ['bold', 'italic', 'underline'],
-                  },
-                  blockType: {
-                    options: ['Normal', 'H1', 'H2', 'H3'],
-                  },
-                  list: {
-                    options: ['unordered', 'ordered'],
-                  },
-                  textAlign: {
-                    options: ['left', 'center', 'right'],
-                  },
-                  link: {
-                    popupClassName: 'link-popup',
-                  },
-                }}
-                placeholder="Write your blog content..."
-              />
             </EditorContainer>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

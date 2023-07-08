@@ -1,5 +1,9 @@
-import { TextField, Button, Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import styled from 'styled-components';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 
 export const LoginPageContainer = styled('div')`
   display: flex;
@@ -8,7 +12,7 @@ export const LoginPageContainer = styled('div')`
   height: 100vh;
 `;
 
-export const LoginCard = styled('div')`
+export const LoginCard = styled(Card)`
   width: 400px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.palette.grey[500]};
@@ -20,7 +24,7 @@ export const CardContentWrapper = styled('div')`
   padding: 16px;
 `;
 
-export const FormTitle = styled('h2')`
+export const FormTitle = styled(Typography)`
   margin: 0 0 16px;
   text-align: center;
 `;

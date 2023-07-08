@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Button } from '@mui/material';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import {
   ProfileContainer,
   UserInfoCard,
@@ -18,6 +19,7 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState([]);
   const [blogPosts, setBlogPosts] = useState([]);
   const token = Cookies.get('jwt');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch User Info
@@ -48,8 +50,7 @@ const Profile = () => {
   }, [token]);
 
   const handleCreateBlogPost = () => {
-    // Handle create blog post button click
-    // Redirect to the create blog post page
+    navigate('/createblog');
   };
 
   return (

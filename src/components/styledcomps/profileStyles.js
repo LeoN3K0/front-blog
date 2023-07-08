@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { Card, Button, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import theme from '../../themes/theme';
 
