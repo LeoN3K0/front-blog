@@ -87,3 +87,24 @@ export const ButtonContainer = styled('div')`
   justify-content: space-between;
   align-items: flex-end;
 `;
+
+export const SuccessMessage = styled(Typography)`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+export const CreateNewButton = styled(Button)`
+  padding: 12px 24px;
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.primary.dark};
+  }
+`;

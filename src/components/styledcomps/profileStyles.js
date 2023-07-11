@@ -6,22 +6,29 @@ import Typography from '@mui/material/Typography';
 import theme from '../../themes/theme';
 
 export const ProfileContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(250px, auto) minmax(0, 1fr);
+  gap: 20px;
   align-items: flex-start;
-  justify-content: center;
   padding: 20px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 `;
 
 export const UserInfoCard = styled(Card)`
-  width: 300px;
-  margin-right: 20px;
+  width: 100%;
+  max-width: 250px;
   padding: 20px;
 `;
 
 export const BlogPostsCard = styled(Card)`
-  flex: 1;
+  width: 100%;
+  max-width: 1050px;
   padding: 20px;
-  position: relative;
+  margin: auto;
 `;
 
 export const SectionTitle = styled(Typography)`
@@ -43,9 +50,21 @@ export const BlogPostTitle = styled(Typography)`
   font-weight: bold;
 `;
 
+export const PublishedStatus = styled(Typography)`
+  font-size: 12px;
+  color: ${({ theme }) => theme.palette.text.secondary};
+`;
+
+export const BlogPostsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-left: auto;
 `;
 
 export const CreateBlogPostButton = styled(Button)`
@@ -55,10 +74,4 @@ export const CreateBlogPostButton = styled(Button)`
   &:hover {
     background-color: ${theme.palette.secondary.dark};
   }
-`;
-
-export const BlogPostsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;

@@ -28,7 +28,7 @@ function App() {
           {isLoggedIn && (
             <>
               <Route path="/createblog" element={<CreateBlog/>} />
-              <Route path="/editblog" element={<EditBlog/>} />
+              <Route path="/editblog/:id" element={<EditBlog/>} />
             </>
           )}
           <Route path="/blogpost" element={<BlogPost/>} />
@@ -41,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 

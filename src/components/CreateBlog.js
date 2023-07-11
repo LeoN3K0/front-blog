@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Editor from './Editor';
 import Preview from './BlogPreview';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useAuth } from '../AuthContext';
 import {
   CreateBlogContainer,
   CreateBlogCard,
@@ -11,11 +14,17 @@ import {
   ButtonContainer,
   SaveButton,
   PublishButton,
+  SuccessMessage,
+  CreateNewButton
 } from './styledcomps/createBlogStyles';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [isDraft, setIsDraft] = useState(false);
+  const { userName } = useAuth();
+  const token = Cookies.get('jwt');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -27,19 +36,72 @@ const CreateBlog = () => {
 
   const handleSaveDraft = (e) => {
     e.preventDefault();
-    // Logic for saving the blog post as a draft
-    console.log('Title:', title);
-    console.log('Body:', body);
-    console.log('Published:', false);
+    axios.post('http://localhost:3000/create-blog', {
+      title: title,
+      body: body,
+      published: false,
+      publishedDate: null,
+      author: userName,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.message);
+        setSuccess(true);
+        setIsDraft(true);
+      })
+      .catch((error) => {
+        console.error('Failed to save draft:', error);
+      });
   };
+
 
   const handlePublish = (e) => {
     e.preventDefault();
-    // Logic for publishing the blog post
-    console.log('Title:', title);
-    console.log('Body:', body);
-    console.log('Published:', false);
+    axios.post('http://localhost:3000/create-blog', {
+      title: title,
+      body: body,
+      published: true,
+      publishedDate: new Date().toISOString().split('T')[0],
+      author: userName,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.message);
+        setSuccess(true);
+        setIsDraft(false);
+      })
+      .catch((error) => {
+        console.error('Failed to publish blog:', error);
+      });
   };
+
+  const handleCreateNew = () => {
+    setTitle('');
+    setBody('');
+    setSuccess(false);
+    setIsDraft(false);    
+  }
+
+  if (success) {
+    return (
+      <CreateBlogContainer>
+        <CreateBlogCard>
+          {isDraft ? (
+            <SuccessMessage>Blog Saved Successfully!</SuccessMessage>
+          ) : (
+            <SuccessMessage>Blog Published Successfully!</SuccessMessage>
+          )}
+          <CreateNewButton onClick={handleCreateNew}>Create New</CreateNewButton>
+        </CreateBlogCard>
+      </CreateBlogContainer>
+    );
+  }
 
   return (
     <CreateBlogContainer>

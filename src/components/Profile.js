@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Divider } from '@mui/material';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import {
   SectionTitle,
   BlogPostItem,
   BlogPostTitle,
+  PublishedStatus,
   CreateBlogPostButton,
   ButtonContainer,
   BlogPostsHeader,
@@ -37,9 +38,13 @@ const Profile = () => {
         setUserInfo(null);
       });
   
-    // Fetch blog posts
+    // Fetch blog users posts
     axios
-      .get('http://localhost:3000/blogPosts')
+      .get(`http://localhost:3000/blogs/${userInfo.username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setBlogPosts(response.data);
       })
@@ -47,10 +52,30 @@ const Profile = () => {
         console.log(error);
         setBlogPosts([]);
       });
-  }, [token]);
+  }, [token, userInfo.username]);
 
   const handleCreateBlogPost = () => {
     navigate('/createblog');
+  };
+
+  const handleEditBlogPost = (postId) => {
+    navigate(`/editblog/${postId}`);
+  };
+
+  const handleDeleteBlogPost = (postId) => {
+    axios
+      .delete(`http://localhost:3000/blogs/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        // Remove the deleted blog post from the state
+        setBlogPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+      })
+      .catch((error) => {
+        console.error('Error deleting blog post:', error);
+      });
   };
 
   return (
@@ -61,14 +86,14 @@ const Profile = () => {
           <div>
             <Typography>Email: {userInfo.email}</Typography>
             <Typography>
-              Joined:{" "}
-              {new Date(userInfo.joined).toLocaleString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric",
+              Joined:{' '}
+              {new Date(userInfo.joined).toLocaleString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
               })}
             </Typography>
           </div>
@@ -76,26 +101,34 @@ const Profile = () => {
           <Typography>No user information found.</Typography>
         )}
       </UserInfoCard>
-  
+
       <BlogPostsCard>
-      <BlogPostsHeader>
-        <SectionTitle variant="h5">Blog Posts</SectionTitle>
-        <ButtonContainer>
-          <CreateBlogPostButton onClick={handleCreateBlogPost}>
-            Create Blog Post
-          </CreateBlogPostButton>
-        </ButtonContainer>
-      </BlogPostsHeader>
+        <BlogPostsHeader>
+          <SectionTitle variant="h5">Blog Posts</SectionTitle>
+          <ButtonContainer>
+            <CreateBlogPostButton onClick={handleCreateBlogPost}>
+              Create Blog Post
+            </CreateBlogPostButton>
+          </ButtonContainer>
+        </BlogPostsHeader>
         {blogPosts.length > 0 ? (
-          blogPosts.map((post) => (
-            <BlogPostItem key={post.id}>
-              <BlogPostTitle>{post.name}</BlogPostTitle>
-              <div>
-                <Button variant="outlined">Edit</Button>
-                <Button variant="outlined">Delete</Button>
+          <>
+            {blogPosts.map((post, index) => (
+              <div key={post.id}>
+                <BlogPostItem>
+                  <div>
+                    <BlogPostTitle>{post.title}</BlogPostTitle>
+                    <PublishedStatus variant="body2">{post.published ? 'Published' : 'Draft'}</PublishedStatus>
+                  </div>
+                  <div>
+                    <Button variant="outlined" onClick={() => handleEditBlogPost(post.id)}>Edit</Button>
+                    <Button variant="outlined" onClick={() => handleDeleteBlogPost(post.id)}>Delete</Button>
+                  </div>
+                </BlogPostItem>
+                {index !== blogPosts.length - 1 && <Divider />}
               </div>
-            </BlogPostItem>
-          ))
+            ))}
+          </>
         ) : (
           <Typography>No blog posts found.</Typography>
         )}
