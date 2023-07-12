@@ -17,7 +17,6 @@ export const EditBlogContainer = styled(Box)`
 
 export const EditBlogCard = styled(Card)`
   width: 100%;
-  height: 550px;
   max-width: 600px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -108,4 +107,39 @@ export const ButtonContainer = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+`;
+
+export const DeleteImageButton = styled(Button)`
+  display: block;
+  margin-top: 20px;
+  padding: 4px 8px; 
+  background-color: ${({ theme }) => theme.palette.error.main};
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.error.dark};
+  }
+`;
+
+export const UploadButton = styled(Button)`
+  display: block;
+  width: 15px;
+  margin-top: 20px;
+  padding: 4px 8px; 
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.primary.dark};
+  }
 `;

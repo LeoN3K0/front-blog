@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 export const EditorContainer = styled(Box)`
+  margin-bottom: 6px;
   .ql-toolbar {
     background-color: #f8f8f8;
     border: none;

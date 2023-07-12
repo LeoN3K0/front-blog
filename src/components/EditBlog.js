@@ -16,6 +16,8 @@ import {
   SaveButton,
   DeleteButton,
   PublishButton,
+  UploadButton,
+  DeleteImageButton,
 } from './styledcomps/editBlogStyles';
 
 const EditBlog = () => {
@@ -23,6 +25,7 @@ const EditBlog = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [blogInfo, setBlogInfo] = useState('');
+  const [imageLink, setImageLink] = useState('');
   const [ isPublished, setPublished ] = useState(false);
   const { userName } = useAuth();
   const navigate = useNavigate();
@@ -57,7 +60,8 @@ const EditBlog = () => {
             setTitle(matchingBlog.title);
             setBody(matchingBlog.body);
             setBlogInfo(matchingBlog);
-            setPublished(matchingBlog.published);            
+            setPublished(matchingBlog.published); 
+            setImageLink(matchingBlog.image);           
           } else {
             console.log("Match not found");
             navigate('/*');
@@ -86,6 +90,7 @@ const EditBlog = () => {
       published: blogInfo.published,
       publishedDate: blogInfo.publishedDate,
       author: blogInfo.author,
+      image: imageLink,
     }, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -123,6 +128,7 @@ const EditBlog = () => {
       published: true,
       publishedDate: new Date().toISOString().split('T')[0],
       author: blogInfo.author,
+      image: imageLink,
     }, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -133,6 +139,43 @@ const EditBlog = () => {
       })
       .catch((error) => {
         console.error('Failed to publish:', error);
+      });
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    axios.post('http://localhost:3000/upload-image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        setImageLink(response.data.imageUrl);
+      })
+      .catch((error) => {
+        console.error('Failed to upload image:', error);
+      });
+  };
+
+  const handleImageDelete = () => {
+    if (!imageLink) {
+      return; // No image to delete
+    }
+  
+    const imageName = imageLink.substring(imageLink.lastIndexOf('/') + 1);
+  
+    axios.delete(`http://localhost:3000/delete-image/${encodeURIComponent(imageName)}`, {
+    })
+      .then((response) => {
+        console.log(response.data);
+        setImageLink('');
+      })
+      .catch((error) => {
+        console.error('Failed to delete image:', error);
       });
   };
 
@@ -148,6 +191,28 @@ const EditBlog = () => {
           <div>
             <FormLabel>Body:</FormLabel>
             <Editor value={body} onChange={handleBodyChange} placeholder="Write your blog content..." />
+          </div>
+          <div>
+            <FormLabel>Display image:</FormLabel>
+            {imageLink ? (
+              <div>
+                <DeleteImageButton onClick={handleImageDelete}>Delete</DeleteImageButton> 
+                <span>{imageLink}</span>       
+              </div>
+            ) : (
+              <div>
+              <UploadButton component="label">
+                Upload
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={handleImageUpload}
+                />
+              </UploadButton>
+              <span>No Image Detected</span>
+              </div>
+            )}
           </div>
           <ButtonContainer>
             <div>

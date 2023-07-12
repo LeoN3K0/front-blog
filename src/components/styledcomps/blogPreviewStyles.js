@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 export const PreviewCard = styled(Card)`
   width: 100%;
   max-width: 600px;
-  min-height: 550px;
-  max-height: 550px; 
+  min-height: 650px;
+  max-height: 650px; 
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
