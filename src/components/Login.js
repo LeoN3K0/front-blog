@@ -32,7 +32,7 @@ const Login = () => {
     setIsRegistrationSuccess(false); // Reset registration success message when switching between register/login
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     // Validate form inputs
     const errors = {};
     if (!email) {
@@ -47,40 +47,46 @@ const Login = () => {
     if (password.length < 6) {
       errors.password = 'Password must be at least 6 characters long.';
     }
-
+  
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
-
+  
     const requestData = {
       email: email,
       username: username,
       password: password
     };
-
-    axios
-      .post('http://localhost:3000/register', requestData, {
+  
+    try {
+      await axios.post('http://localhost:3000/register', requestData, {
         headers: {
           'Content-Type': 'application/json'
         }
-      })
-      .then(response => {
-        console.log(response.data);
-        // Reset form fields on successful registration
-        setEmail('');
-        setUsername('');
-        setPassword('');
-        setFormErrors({});
-        setIsRegistrationSuccess(true);
-      })
-      .catch(error => {
-        console.log(error);
-        setFormErrors({ general: 'Unable to register.' });
       });
+  
+      // Reset form fields on successful registration
+      setEmail('');
+      setUsername('');
+      setPassword('');
+      setFormErrors({});
+      setIsRegistrationSuccess(true);
+  
+      // Automatically log in the user after registration
+      const loginData = {
+        usernameOrEmail: username,
+        password: password
+      };
+      await handleLogin(loginData); // Call handleLogin with registration credentials
+    } catch (error) {
+      console.log(error);
+      setFormErrors({ general: 'Unable to register.' });
+    }
   };
+  
 
-  const handleLogin = () => {
+  const handleLogin = async(loginData) => {
     // Validate form inputs
     const errors = {};
     if (!username && !email) {
@@ -94,10 +100,10 @@ const Login = () => {
       return;
     }
   
-    const requestData = {
+    const requestData = loginData || {
       usernameOrEmail: username || email,
       password: password
-    };
+    };    
   
     axios
       .post('http://localhost:3000/signin', requestData, {
