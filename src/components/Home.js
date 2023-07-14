@@ -1,16 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@mui/material';
 import { HomeContainer, CardContainer, LeftSection, RightSection, RecentPostTitle, RecentPostContent, RecentPostsList, ListTitle, ListSeparator, RecentPostsListItem, RecentPostsListItemLink, CreateBlogPostButton, ButtonContainer } from './styledcomps/homeStyles';
 import theme from '../themes/theme';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import DOMPurify from 'dompurify';
 
 const Home = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const [recentPost, setRecentPost] = useState({});
+  const [recentPosts, setRecentPosts] = useState([]);
 
   const handleCreateBlogPost = () => {
     navigate('/createblog');
+  };
+
+  useEffect(() => {
+    const fetchRecentPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/blogs');
+        const blogs = response.data;
+        
+        // Sort blogs by published_date in descending order
+        blogs.sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+        
+        // Set the most recent post
+        setRecentPost(blogs[0]);
+        
+        // Set the next 5 recent posts (excluding the most recent one)
+        setRecentPosts(blogs.slice(1, 6));
+      } catch (error) {
+        console.error('Failed to fetch recent posts:', error);
+      }
+    };
+
+    fetchRecentPosts();
+  }, []);
+
+  const sanitizeHTML = (html) => {
+    const sanitizedHTML = DOMPurify.sanitize(html, { ADD_TAGS: ['iframe'] });
+    return { __html: sanitizedHTML };
+  };
+
+  const extractFirstParagraph = (html) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const paragraphs = doc.getElementsByTagName('p');
+    return paragraphs.length > 0 ? paragraphs[0].innerHTML : '';
   };
 
   return (
@@ -27,28 +65,22 @@ const Home = () => {
           <LeftSection>
             <RecentPostTitle>Most Recent Blog Post</RecentPostTitle>
             <RecentPostContent>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum est vel elit feugiat, vitae fermentum nunc efficitur. Maecenas bibendum felis vitae ligula scelerisque, non consectetur risus mollis. Duis sed ullamcorper purus.
+              <RecentPostsListItemLink href={`/blogs/${recentPost.id}`}>{recentPost.title}</RecentPostsListItemLink>
             </RecentPostContent>
+            <br></br>
+            <RecentPostContent><img src={recentPost.image} alt="Alt Text" /></RecentPostContent>
+            <br></br>
+            <RecentPostContent dangerouslySetInnerHTML={sanitizeHTML(extractFirstParagraph(recentPost.body))} />
           </LeftSection>
           <RightSection>
             <ListTitle>Recent Posts</ListTitle>
             <ListSeparator />
             <RecentPostsList>
-              <RecentPostsListItem>
-                <RecentPostsListItemLink href="#">Blog Post 1</RecentPostsListItemLink>
-              </RecentPostsListItem>
-              <RecentPostsListItem>
-                <RecentPostsListItemLink href="#">Blog Post 2</RecentPostsListItemLink>
-              </RecentPostsListItem>
-              <RecentPostsListItem>
-                <RecentPostsListItemLink href="#">Blog Post 3</RecentPostsListItemLink>
-              </RecentPostsListItem>
-              <RecentPostsListItem>
-                <RecentPostsListItemLink href="#">Blog Post 4</RecentPostsListItemLink>
-              </RecentPostsListItem>
-              <RecentPostsListItem>
-                <RecentPostsListItemLink href="#">Blog Post 5</RecentPostsListItemLink>
-              </RecentPostsListItem>
+              {recentPosts.map((post) => (
+                <RecentPostsListItem key={post.id}>
+                  <RecentPostsListItemLink href={`/blogs/${post.id}`}>{post.title}</RecentPostsListItemLink>
+                </RecentPostsListItem>
+              ))}
             </RecentPostsList>
           </RightSection>
         </CardContainer>

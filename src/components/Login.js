@@ -123,6 +123,16 @@ const Login = () => {
       });
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      if (isRegister) {
+        handleRegister();
+      } else {
+        handleLogin();
+      }
+    }
+  };
+
   return (
     <LoginPageContainer>
       <LoginCard>
@@ -146,6 +156,7 @@ const Login = () => {
                       value={username}
                       onChange={e => setUsername(e.target.value)}
                       error={Boolean(formErrors.username)}
+                      onKeyDown={handleKeyDown}
                     />
                     {formErrors.username && <ErrorMessage>{formErrors.username}</ErrorMessage>}
                     <FormField
@@ -154,6 +165,7 @@ const Login = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       error={Boolean(formErrors.email)}
+                      onKeyDown={handleKeyDown}
                     />
                     {formErrors.email && <ErrorMessage>{formErrors.email}</ErrorMessage>}
                     <FormField
@@ -163,6 +175,7 @@ const Login = () => {
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       error={Boolean(formErrors.password)}
+                      onKeyDown={handleKeyDown}
                     />
                     {formErrors.password && <ErrorMessage>{formErrors.password}</ErrorMessage>}
                     <FormAction variant="contained" color="primary" onClick={handleRegister}>
@@ -184,6 +197,7 @@ const Login = () => {
                         setEmail(e.target.value);
                       }}
                       error={Boolean(formErrors.usernameOrEmail)}
+                      onKeyDown={handleKeyDown}
                     />
                     {formErrors.usernameOrEmail && <ErrorMessage>{formErrors.usernameOrEmail}</ErrorMessage>}
                     <FormField
@@ -193,6 +207,7 @@ const Login = () => {
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       error={Boolean(formErrors.password)}
+                      onKeyDown={handleKeyDown}
                     />
                     {formErrors.password && <ErrorMessage>{formErrors.password}</ErrorMessage>}
                     <FormAction variant="contained" color="primary" onClick={handleLogin}>

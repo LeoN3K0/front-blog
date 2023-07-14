@@ -77,7 +77,7 @@ const Navbar = () => {
 
   return (
     <>
-      <StyledAppBar position="static">
+      <StyledAppBar position="sticky">
         <Toolbar>
           <StyledLogoLink to="/">
             <StyledLogoText>Blog-app</StyledLogoText>

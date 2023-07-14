@@ -68,7 +68,7 @@ const CreateBlog = () => {
       title: title,
       body: body,
       published: true,
-      publishedDate: new Date().toISOString().split('T')[0],
+      publishedDate: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       author: userName,
       image: imageLink,
     }, {

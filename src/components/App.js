@@ -31,7 +31,7 @@ function App() {
               <Route path="/editblog/:id" element={<EditBlog/>} />
             </>
           )}
-          <Route path="/blogpost" element={<BlogPost/>} />
+          <Route path="/blogs/:id" element={<BlogPost/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/*" element={<NotFoundPage/>} />
         </Routes>

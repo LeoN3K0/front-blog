@@ -1,15 +1,15 @@
-import styled  from 'styled-components';
-import Box from '@mui/material/Box';
+import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-export const BlogPostContainer = styled(Box)`
+export const BlogPostContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start; /* Align items to the top */
+  padding-top: 80px; /* Adjust the value according to your nav bar height */
+  min-height: calc(100vh - 80px); /* Adjust the value according to your nav bar height */
 `;
 
 export const BlogPostCard = styled(Card)`
@@ -25,6 +25,7 @@ export const BlogPostCardContent = styled(CardContent)`
 `;
 
 export const BlogPostTitle = styled(Typography)`
+  text-align: center;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -41,4 +42,21 @@ export const BlogPostImage = styled(CardMedia)`
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
+`;
+
+export const SmallTextContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+export const ByAuthor = styled(Typography)`
+  font-size: 10px;
+  padding: 2px;
+`;
+
+export const PublishedOn = styled(Typography)`
+  font-size: 10px;
+  padding: 2px;
+  margin-left: 10px;
 `;

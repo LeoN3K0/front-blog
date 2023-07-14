@@ -43,6 +43,10 @@ export const RecentPostTitle = styled(Typography)`
 export const RecentPostContent = styled(Typography)`
   margin: 0;
   color: ${({ theme }) => theme.palette.text.secondary};
+  img {
+    max-width: 100%;
+    height: 350px;
+  }
 `;
 
 export const RecentPostsList = styled(List)`
