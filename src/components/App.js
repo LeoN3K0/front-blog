@@ -12,6 +12,8 @@ import EditBlog from "./EditBlog";
 import BlogPost from "./BlogPost";
 import Profile from "./Profile";
 import { useAuth } from "../AuthContext";
+import Footer from "./Footer";
+import { StyledAppContainer } from "./styledcomps/appStyles";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -19,7 +21,8 @@ function App() {
   return (
     <div>
       <BrowserRouter> 
-        <ThemeProvider theme={theme}>   
+        <ThemeProvider theme={theme}>  
+        <StyledAppContainer> 
         <NavBar/>  
         <Routes>
           <Route path="/" element={<Home/>} />
@@ -35,6 +38,8 @@ function App() {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/*" element={<NotFoundPage/>} />
         </Routes>
+        <Footer />
+        </StyledAppContainer>
         </ThemeProvider>
       </BrowserRouter>
     </div>
