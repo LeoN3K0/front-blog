@@ -64,24 +64,37 @@ const Home = () => {
         <CardContainer>
           <LeftSection>
             <RecentPostTitle>Most Recent Blog Post</RecentPostTitle>
-            <RecentPostContent>
+            {recentPost ?(
+              <>
+              <RecentPostContent>
               <RecentPostsListItemLink href={`/blogs/${recentPost.id}`}>{recentPost.title}</RecentPostsListItemLink>
-            </RecentPostContent>
-            <br></br>
-            <RecentPostContent><img src={recentPost.image} alt="Alt Text" /></RecentPostContent>
-            <br></br>
-            <RecentPostContent dangerouslySetInnerHTML={sanitizeHTML(extractFirstParagraph(recentPost.body))} />
+              </RecentPostContent>
+              <br></br>
+              <RecentPostContent><img src={recentPost.image} alt="Alt Text" /></RecentPostContent>
+              <br></br>
+              <RecentPostContent dangerouslySetInnerHTML={sanitizeHTML(extractFirstParagraph(recentPost.body))} />
+              </>
+            ):(
+              <RecentPostContent>NO CONTENT</RecentPostContent>
+            )}            
           </LeftSection>
           <RightSection>
-            <ListTitle>Recent Posts</ListTitle>
-            <ListSeparator />
-            <RecentPostsList>
-              {recentPosts.map((post) => (
-                <RecentPostsListItem key={post.id}>
-                  <RecentPostsListItemLink href={`/blogs/${post.id}`}>{post.title}</RecentPostsListItemLink>
-                </RecentPostsListItem>
-              ))}
-            </RecentPostsList>
+            {recentPost ? (
+              <>
+              <ListTitle>Recent Posts</ListTitle>
+              <ListSeparator />
+              <RecentPostsList>
+                {recentPosts.map((post) => (
+                  <RecentPostsListItem key={post.id}>
+                    <RecentPostsListItemLink href={`/blogs/${post.id}`}>{post.title}</RecentPostsListItemLink>
+                  </RecentPostsListItem>
+                ))}
+              </RecentPostsList>
+              </>
+            ):(
+              <ListTitle>No content</ListTitle>
+            )}
+            
           </RightSection>
         </CardContainer>
       </HomeContainer>
