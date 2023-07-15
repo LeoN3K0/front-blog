@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import { EditorContainer, CustomModal, UrlInput, ModalButton, CancelButton, ModalOrText } from './styledcomps/editorStyles';
 
-const Editor = ({ value, onChange, placeholder }) => {
+const Editor = ({ value, onChange, placeholder, onImageRemove }) => {
   const editorRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
@@ -46,6 +46,8 @@ const Editor = ({ value, onChange, placeholder }) => {
   };
 
   const handleQuillChange = (content, _, source, editor) => {
+    onChange(content);
+  
     if (source === 'user') {
       const deltas = editor.getContents().ops;
       const imageUrls = [];
@@ -57,31 +59,41 @@ const Editor = ({ value, onChange, placeholder }) => {
         }
       });
   
-      // Perform deletion for images that are no longer in the editor
-      const deletedImages = [];
-      const imageElements = document.querySelectorAll('.ql-editor img');
-      imageElements.forEach((imageElement) => {
-        const imageUrl = imageElement.getAttribute('src');
-        if (!imageUrls.includes(imageUrl)) {
-          deletedImages.push(imageUrl);
-          imageElement.parentNode.removeChild(imageElement);
-        }
-      });
+      handleDeletedImages(imageUrls);
+    }
+  };
   
-      // Send deletion requests for deleted images
-      deletedImages.forEach(async (imageUrl) => {
-        try {
-          const imageName = imageUrl.split('/').pop();
-          await axios.delete(`http://localhost:3000/delete-image/${imageName}`);
-          console.log('Image deleted successfully:', imageUrl);
-        } catch (error) {
-          console.error('Error deleting image', error);
-        }
-      });
+  const handleDeletedImages = async (imageUrls) => {
+    // Perform deletion for images that are no longer in the editor
+    const deletedImages = [];
+    const imageElements = document.querySelectorAll('.ql-editor img');
+    imageElements.forEach((imageElement) => {
+      const imageUrl = imageElement.getAttribute('src');
+      if (!imageUrls.includes(imageUrl)) {
+        deletedImages.push(imageUrl);
+        imageElement.parentNode.removeChild(imageElement);
+      }
+    });
+  
+    // Send deletion requests for deleted images
+    for (const imageUrl of deletedImages) {
+      try {
+        const imageName = imageUrl.split('/').pop();
+        await axios.delete(`http://localhost:3000/delete-image/${imageName}`);
+        console.log('Image deleted successfully:', imageUrl);
+      } catch (error) {
+        console.error('Error deleting image', error);
+      }
     }
   
-    onChange(content);
+    // Call the onImageRemove function for each deleted image
+    deletedImages.forEach((imageUrl) => {
+      onImageRemove(imageUrl);
+    });
   };
+  
+  
+
       
 
   return (

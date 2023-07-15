@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { BlogPostContainer, BlogPostCard, BlogPostTitle, BlogPostBody, BlogPostImage, SmallTextContainer, ByAuthor, PublishedOn, } from './styledcomps/blogPostStyles';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
+import { BlogPostContainer, BlogPostContent, BlogPostTitle, BlogPostBody, BlogPostImage, SmallTextContainer, EditIconStyled, ByAuthor, PublishedOn, } from './styledcomps/blogPostStyles';
 
 const BlogPost = () => {
   const { id } = useParams();
   const [blogPost, setBlogPost] = useState(null);
+  const { userName } = useAuth();
+  const navigate = useNavigate();
   
   useEffect(() => {
     const fetchPost = async () => {
@@ -23,20 +26,25 @@ const BlogPost = () => {
 
     fetchPost();
   }, [id]);
+
+  const handleEdit = () => {
+    navigate(`/editblog/${id}`);
+  };
   
 
   return (
     <BlogPostContainer>
       {blogPost && (
-        <BlogPostCard>          
+        <BlogPostContent>          
           <BlogPostTitle>{blogPost.title}</BlogPostTitle> 
-          <SmallTextContainer>
+          <SmallTextContainer className='ql-editor'>
             <ByAuthor>By {blogPost.author}</ByAuthor>
             <PublishedOn>Published On {new Date(blogPost.published_date).toLocaleDateString('en-US')}</PublishedOn>
+            {userName === blogPost.author && <EditIconStyled onClick={handleEdit} />}
           </SmallTextContainer>          
-          {blogPost.image && <BlogPostImage component="img" src={blogPost.image} alt="Blog Post Image" />}            
+          {blogPost.image && <BlogPostImage className='ql-editor' src={blogPost.image} alt={blogPost.title} />}           
           <BlogPostBody className='ql-editor' dangerouslySetInnerHTML={{ __html: blogPost.body }} />     
-        </BlogPostCard>
+        </BlogPostContent>
       )}
     </BlogPostContainer>
   );

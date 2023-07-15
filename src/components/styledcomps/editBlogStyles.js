@@ -1,9 +1,18 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
+const fadeOutAnimation = keyframes`
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+`;
 
 export const EditBlogContainer = styled(Box)`
   display: grid;
@@ -142,4 +151,12 @@ export const UploadButton = styled(Button)`
   &:hover {
     background-color: ${({ theme }) => theme.palette.primary.dark};
   }
+`;
+
+export const MessageContainer = styled.div`
+  margin-bottom: 10px;
+  color: green;
+  font-size: 14px;
+  opacity: 1;
+  animation: ${fadeOutAnimation} 0.5s ease-in-out 20s forwards;
 `;

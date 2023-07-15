@@ -4,6 +4,7 @@ import Preview from './BlogPreview';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 import {
   CreateBlogContainer,
   CreateBlogCard,
@@ -14,8 +15,6 @@ import {
   ButtonContainer,
   SaveButton,
   PublishButton,
-  SuccessMessage,
-  CreateNewButton,
   DeleteButton,
   UploadButton
 } from './styledcomps/createBlogStyles';
@@ -23,11 +22,10 @@ import {
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [isDraft, setIsDraft] = useState(false);
   const [imageLink, setImageLink] = useState('');
   const { userName } = useAuth();
   const token = Cookies.get('jwt');
+  const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -53,8 +51,7 @@ const CreateBlog = () => {
     })
       .then((response) => {
         console.log(response.data.message);
-        setSuccess(true);
-        setIsDraft(true);
+        navigate(`/editblog/${response.data.blogId.id}`)
       })
       .catch((error) => {
         console.error('Failed to save draft:', error);
@@ -77,9 +74,8 @@ const CreateBlog = () => {
       },
     })
       .then((response) => {
-        console.log(response.data.message);
-        setSuccess(true);
-        setIsDraft(false);
+        console.log(response.data.message);        
+        navigate(`/blogs/${response.data.blogId.id}`);
       })
       .catch((error) => {
         console.error('Failed to publish blog:', error);
@@ -123,28 +119,6 @@ const CreateBlog = () => {
       });
   };
 
-  const handleCreateNew = () => {
-    setTitle('');
-    setBody('');
-    setSuccess(false);
-    setIsDraft(false);    
-  }
-
-  if (success) {
-    return (
-      <CreateBlogContainer>
-        <CreateBlogCard>
-          {isDraft ? (
-            <SuccessMessage>Blog Saved Successfully!</SuccessMessage>
-          ) : (
-            <SuccessMessage>Blog Published Successfully!</SuccessMessage>
-          )}
-          <CreateNewButton onClick={handleCreateNew}>Create New</CreateNewButton>
-        </CreateBlogCard>
-      </CreateBlogContainer>
-    );
-  }
-
   return (
     <CreateBlogContainer>
       <CreateBlogCard>
@@ -156,7 +130,7 @@ const CreateBlog = () => {
           </div>
           <div>
             <FormLabel>Body:</FormLabel>
-            <Editor value={body} onChange={handleBodyChange} placeholder="Write your blog content..." />
+            <Editor value={body} onChange={handleBodyChange} placeholder="Write your blog content..." onImageRemove={() => {}}/>
           </div>
           <div>
             <FormLabel>Display image:</FormLabel>
