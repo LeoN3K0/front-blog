@@ -1,5 +1,6 @@
 {
-  "name": "front-blog",
+  "name": "front-blog",  
+  "homepage": "https://leon3k0.github.io/front-blog/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
