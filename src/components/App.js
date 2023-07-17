@@ -25,7 +25,7 @@ function App() {
         <StyledAppContainer> 
         <NavBar/>  
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/front-blog/" element={<Home/>} />
           <Route path="/blogs" element={<Blogs/>} />
           <Route path="/login" element={<Login/>} />
           {isLoggedIn && (
