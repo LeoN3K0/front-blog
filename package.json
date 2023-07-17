@@ -26,6 +26,8 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0"
+    "@craco/craco": "^7.1.0",
+    "gh-pages": "^5.0.0"
   }
 }
