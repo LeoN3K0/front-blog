@@ -79,7 +79,7 @@ const Navbar = () => {
     <>
       <StyledAppBar position="sticky">
         <Toolbar>
-          <StyledLogoLink to="/">
+          <StyledLogoLink to="/front-blog">
             <StyledLogoText>Blog-app</StyledLogoText>
           </StyledLogoLink>
           <Hidden mdUp>
@@ -91,15 +91,15 @@ const Navbar = () => {
           </Hidden>
           <Hidden smDown>
             <StyledNavLinks>
-              <StyledLink to="/">Home</StyledLink>
-              <StyledLink to="/blogs">Blogs</StyledLink>
+              <StyledLink to="/front-blog">Home</StyledLink>
+              <StyledLink to="/front-blog/blogs">Blogs</StyledLink>
               {isLoggedIn ? (
                 <>
-                  <StyledLink to="/profile">{userName}</StyledLink>
-                  <StyledLink to="/" onClick={handleLogout}>Logout</StyledLink>
+                  <StyledLink to="/front-blog/profile">{userName}</StyledLink>
+                  <StyledLink to="/front-blog" onClick={handleLogout}>Logout</StyledLink>
                 </>
               ) : (
-                <StyledLink to="/login">Login</StyledLink>
+                <StyledLink to="/front-blog/login">Login</StyledLink>
               )}
             </StyledNavLinks>
           </Hidden>
@@ -113,23 +113,23 @@ const Navbar = () => {
                 <CloseIcon />
               </StyledCloseButton>
               <StyledList>
-                <StyledListItem component={Link} to="/" onClick={handleDrawerClose}>
+                <StyledListItem component={Link} to="/front-blog" onClick={handleDrawerClose}>
                   <StyledListItemText primary="Home" />
                 </StyledListItem>
-                <StyledListItem component={Link} to="/blogs" onClick={handleDrawerClose}>
+                <StyledListItem component={Link} to="/front-blog/blogs" onClick={handleDrawerClose}>
                   <StyledListItemText primary="Blogs" />
                 </StyledListItem>
                 {isLoggedIn ? (
                   <>
-                    <StyledListItem component={Link} to="/profile" onClick={handleDrawerClose}>
+                    <StyledListItem component={Link} to="/front-blog/profile" onClick={handleDrawerClose}>
                       <StyledListItemText primary={userName} />
                     </StyledListItem>
-                    <StyledListItem component={Link} to="/" onClick={handleLogout}>
+                    <StyledListItem component={Link} to="/front-blog" onClick={handleLogout}>
                       <StyledListItemText primary="Logout" />
                     </StyledListItem>
                   </>
                 ) : (
-                  <StyledListItem component={Link} to="/login" onClick={handleDrawerClose}>
+                  <StyledListItem component={Link} to="/front-blog/login" onClick={handleDrawerClose}>
                     <StyledListItemText primary="Login" />
                   </StyledListItem>
                 )}

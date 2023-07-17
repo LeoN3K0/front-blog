@@ -26,17 +26,17 @@ function App() {
         <NavBar/>  
         <Routes>
           <Route path="/front-blog/" element={<Home/>} />
-          <Route path="/blogs" element={<Blogs/>} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/front-blog/blogs" element={<Blogs/>} />
+          <Route path="/front-blog/login" element={<Login/>} />
           {isLoggedIn && (
             <>
-              <Route path="/createblog" element={<CreateBlog/>} />
-              <Route path="/editblog/:id" element={<EditBlog/>} />
+              <Route path="/front-blog/createblog" element={<CreateBlog/>} />
+              <Route path="/front-blog/editblog/:id" element={<EditBlog/>} />
             </>
           )}
-          <Route path="/blogs/:id" element={<BlogPost/>} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/*" element={<NotFoundPage/>} />
+          <Route path="/front-blog/blogs/:id" element={<BlogPost/>} />
+          <Route path="/front-blog/profile" element={<Profile/>} />
+          <Route path="/front-blog/*" element={<NotFoundPage/>} />
         </Routes>
         <Footer />
         </StyledAppContainer>

@@ -28,7 +28,7 @@ const BlogPost = () => {
   }, [id]);
 
   const handleEdit = () => {
-    navigate(`/editblog/${id}`);
+    navigate(`/front-blog/editblog/${id}`);
   };
   
 

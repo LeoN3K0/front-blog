@@ -55,11 +55,11 @@ const Profile = () => {
   }, [token, userInfo.username]);
 
   const handleCreateBlogPost = () => {
-    navigate('/createblog');
+    navigate('/front-blog/createblog');
   };
 
   const handleEditBlogPost = (postId) => {
-    navigate(`/editblog/${postId}`);
+    navigate(`/front-blog/editblog/${postId}`);
   };
 
   const handleDeleteBlogPost = (postId) => {

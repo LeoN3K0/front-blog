@@ -66,12 +66,12 @@ const EditBlog = () => {
             setImageLink(matchingBlog.image);
           } else {
             console.log('Match not found');
-            navigate('/*');
+            navigate('/front-blog/*');
           }
         })
         .catch((error) => {
           console.error(error);
-          navigate('/*');
+          navigate('/front-blog/*');
         });
     }
 
@@ -159,7 +159,7 @@ const EditBlog = () => {
       )
       .then((response) => {
         console.log(response.data.message);
-        navigate(`/blogs/${id}`);
+        navigate(`/front-blog/blogs/${id}`);
       })
       .catch((error) => {
         console.error('Failed to publish:', error);

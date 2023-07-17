@@ -120,7 +120,7 @@ const Login = () => {
         setPassword('');
         setFormErrors({});
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/front-blog");
         window.location.reload();
       })
       .catch(error => {

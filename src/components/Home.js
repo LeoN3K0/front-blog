@@ -14,7 +14,7 @@ const Home = () => {
   const [recentPosts, setRecentPosts] = useState([]);
 
   const handleCreateBlogPost = () => {
-    navigate('/createblog');
+    navigate('/front-blog/createblog');
   };
 
   useEffect(() => {

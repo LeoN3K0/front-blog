@@ -75,7 +75,7 @@ const CreateBlog = () => {
     })
       .then((response) => {
         console.log(response.data.message);        
-        navigate(`/blogs/${response.data.blogId.id}`);
+        navigate(`/front-blog/blogs/${response.data.blogId.id}`);
       })
       .catch((error) => {
         console.error('Failed to publish blog:', error);
