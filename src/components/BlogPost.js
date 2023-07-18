@@ -13,7 +13,7 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/blogs?id=${id}`);
+        const response = await axios.get(`https://back-blog-e8li.onrender.com/blogs?id=${id}`);
         const blogPosts = response.data;
         
         if (Array.isArray(blogPosts) && blogPosts.length > 0) {

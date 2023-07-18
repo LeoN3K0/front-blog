@@ -37,7 +37,7 @@ const EditBlog = () => {
   useEffect(() => {
     const getBlogsByAuthor = async (username) => {
       try {
-        const response = await axios.get(`http://localhost:3000/blogs/${username}`, {
+        const response = await axios.get(`https://back-blog-e8li.onrender.com/blogs/${username}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -98,7 +98,7 @@ const EditBlog = () => {
   const handleSave = () => {
     axios
       .put(
-        `http://localhost:3000/blogs/${id}`,
+        `https://back-blog-e8li.onrender.com/blogs/${id}`,
         {
           title: title,
           body: body,
@@ -124,7 +124,7 @@ const EditBlog = () => {
 
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:3000/blogs/${id}`, {
+      .delete(`https://back-blog-e8li.onrender.com/blogs/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -142,7 +142,7 @@ const EditBlog = () => {
     e.preventDefault();
     axios
       .put(
-        `http://localhost:3000/blogs/${id}`,
+        `https://back-blog-e8li.onrender.com/blogs/${id}`,
         {
           title: title,
           body: body,
@@ -172,7 +172,7 @@ const EditBlog = () => {
     formData.append('image', file);
 
     axios
-      .post('http://localhost:3000/upload-image', formData, {
+      .post('https://back-blog-e8li.onrender.com/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -194,7 +194,7 @@ const EditBlog = () => {
     const imageName = imageLink.substring(imageLink.lastIndexOf('/') + 1);
 
     axios
-      .delete(`http://localhost:3000/delete-image/${encodeURIComponent(imageName)}`, {})
+      .delete(`https://back-blog-e8li.onrender.com/delete-image/${encodeURIComponent(imageName)}`, {})
       .then((response) => {
         console.log(response.data);
         setImageLink('');

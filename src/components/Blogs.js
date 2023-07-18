@@ -38,7 +38,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        let url = 'http://localhost:3000/blogs';
+        let url = 'https://back-blog-e8li.onrender.com/blogs';
         if (searchQuery) {
           url += `?search=${searchQuery}`;
         }

@@ -14,7 +14,7 @@ const Editor = ({ value, onChange, placeholder, onImageRemove }) => {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:3000/upload-image', formData);
+      const response = await axios.post('https://back-blog-e8li.onrender.com/upload-image', formData);
       const imageUrl = response.data.imageUrl;
       const quill = editorRef.current.getEditor();
       const range = quill.getSelection(true);

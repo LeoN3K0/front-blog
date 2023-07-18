@@ -36,7 +36,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:3000/logout');
+      await axios.post('https://back-blog-e8li.onrender.com/logout');
 
       // Clear the token stored in the cookie
       Cookies.remove('jwt');
@@ -53,7 +53,7 @@ const Navbar = () => {
         const token = Cookies.get('jwt');
         if (token) {
           const response = await axios.post(
-            'http://localhost:3000/verifyToken',
+            'https://back-blog-e8li.onrender.com/verifyToken',
             { token },
             {
               headers: {

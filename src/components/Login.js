@@ -60,7 +60,7 @@ const Login = () => {
     };
   
     try {
-      await axios.post('http://localhost:3000/register', requestData, {
+      await axios.post('https://back-blog-e8li.onrender.com/register', requestData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -106,7 +106,7 @@ const Login = () => {
     };    
   
     axios
-      .post('http://localhost:3000/signin', requestData, {
+      .post('https://back-blog-e8li.onrender.com/signin', requestData, {
         headers: {
           'Content-Type': 'application/json'
         },

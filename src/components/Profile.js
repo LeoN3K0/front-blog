@@ -25,7 +25,7 @@ const Profile = () => {
   useEffect(() => {
     // Fetch User Info
     axios
-      .get('http://localhost:3000/profile', {
+      .get('https://back-blog-e8li.onrender.com/profile', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ const Profile = () => {
   
     // Fetch blog users posts
     axios
-      .get(`http://localhost:3000/blogs/${userInfo.username}`, {
+      .get(`https://back-blog-e8li.onrender.com/blogs/${userInfo.username}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +64,7 @@ const Profile = () => {
 
   const handleDeleteBlogPost = (postId) => {
     axios
-      .delete(`http://localhost:3000/blogs/${postId}`, {
+      .delete(`https://back-blog-e8li.onrender.com/blogs/${postId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

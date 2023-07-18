@@ -20,7 +20,7 @@ const Home = () => {
   useEffect(() => {
     const fetchRecentPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/blogs');
+        const response = await axios.get('https://back-blog-e8li.onrender.com/blogs');
         const blogs = response.data;
         
         // Sort blogs by published_date in descending order

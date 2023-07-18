@@ -37,7 +37,7 @@ const CreateBlog = () => {
 
   const handleSaveDraft = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/create-blog', {
+    axios.post('https://back-blog-e8li.onrender.com/create-blog', {
       title: title,
       body: body,
       published: false,
@@ -61,7 +61,7 @@ const CreateBlog = () => {
 
   const handlePublish = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/create-blog', {
+    axios.post('https://back-blog-e8li.onrender.com/create-blog', {
       title: title,
       body: body,
       published: true,
@@ -87,7 +87,7 @@ const CreateBlog = () => {
     const formData = new FormData();
     formData.append('image', file);
 
-    axios.post('http://localhost:3000/upload-image', formData, {
+    axios.post('https://back-blog-e8li.onrender.com/upload-image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -108,7 +108,7 @@ const CreateBlog = () => {
   
     const imageName = imageLink.substring(imageLink.lastIndexOf('/') + 1);
   
-    axios.delete(`http://localhost:3000/delete-image/${encodeURIComponent(imageName)}`, {
+    axios.delete(`https://back-blog-e8li.onrender.com/delete-image/${encodeURIComponent(imageName)}`, {
     })
       .then((response) => {
         console.log(response.data);
