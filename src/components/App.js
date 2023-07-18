@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import NavBar from "./NavBar";
 import { ThemeProvider } from "@mui/material";
 import theme from '../themes/theme';
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter> 
+      <HashRouter> 
         <ThemeProvider theme={theme}>  
         <StyledAppContainer> 
         <NavBar/>  
@@ -41,7 +41,7 @@ function App() {
         <Footer />
         </StyledAppContainer>
         </ThemeProvider>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
