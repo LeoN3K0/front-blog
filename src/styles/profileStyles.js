@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import theme from '../../themes/theme';
+import theme from '../themes/theme';
 
 export const ProfileContainer = styled.div`
   display: grid;

@@ -20,7 +20,7 @@ import {
   StyledList,
   StyledListItem,
   StyledListItemText
-} from './styledcomps/navbarstyled';
+} from '../styles/navbarstyled';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

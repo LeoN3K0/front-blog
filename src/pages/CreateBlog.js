@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Editor from './Editor';
-import Preview from './BlogPreview';
+import Editor from '../components/Editor';
+import Preview from '../components/BlogPreview';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAuth } from '../AuthContext';
@@ -17,7 +17,7 @@ import {
   PublishButton,
   DeleteButton,
   UploadButton
-} from './styledcomps/createBlogStyles';
+} from '../styles/createBlogStyles';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');

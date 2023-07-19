@@ -14,7 +14,7 @@ import {
   CreateBlogPostButton,
   ButtonContainer,
   BlogPostsHeader,
-} from './styledcomps/profileStyles';
+} from '../styles/profileStyles';
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState([]);

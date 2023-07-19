@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import { BlogPostContainer, BlogPostContent, BlogPostTitle, BlogPostBody, BlogPostImage, SmallTextContainer, EditIconStyled, ByAuthor, PublishedOn, } from './styledcomps/blogPostStyles';
+import { BlogPostContainer, BlogPostContent, BlogPostTitle, BlogPostBody, BlogPostImage, SmallTextContainer, EditIconStyled, ByAuthor, PublishedOn, } from '../styles/blogPostStyles';
 
 const BlogPost = () => {
   const { id } = useParams();

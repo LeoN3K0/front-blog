@@ -4,7 +4,7 @@ import {
   PreviewCard,
   PreviewContent,
   PreviewTitle,
-} from './styledcomps/blogPreviewStyles';
+} from '../styles/blogPreviewStyles';
 
 const BlogPreview = ({ title, body }) => {
   const hasContent = title || body;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Editor from './Editor';
-import Preview from './BlogPreview';
+import Editor from '../components/Editor';
+import Preview from '../components/BlogPreview';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAuth } from '../AuthContext';
@@ -19,7 +19,7 @@ import {
   UploadButton,
   DeleteImageButton,
   MessageContainer,
-} from './styledcomps/editBlogStyles';
+} from '../styles/editBlogStyles';
 
 const EditBlog = () => {
   const { id } = useParams();
