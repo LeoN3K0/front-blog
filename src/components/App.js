@@ -13,7 +13,7 @@ import BlogPost from "../pages/BlogPost";
 import Profile from "../pages/Profile";
 import { useAuth } from "../AuthContext";
 import Footer from "./Footer";
-import { StyledAppContainer } from "../styledcomps/appStyles";
+import { StyledAppContainer } from "../styles/appStyles";
 
 function App() {
   const { isLoggedIn } = useAuth();

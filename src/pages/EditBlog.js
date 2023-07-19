@@ -19,7 +19,7 @@ import {
   UploadButton,
   DeleteImageButton,
   MessageContainer,
-} from '../styledcomps/editBlogStyles';
+} from '../styles/editBlogStyles';
 
 const EditBlog = () => {
   const { id } = useParams();

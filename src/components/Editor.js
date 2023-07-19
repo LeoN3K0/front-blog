@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import { EditorContainer, CustomModal, UrlInput, ModalButton, CancelButton, ModalOrText } from '../styledcomps/editorStyles';
+import { EditorContainer, CustomModal, UrlInput, ModalButton, CancelButton, ModalOrText } from '../styles/editorStyles';
 
 const Editor = ({ value, onChange, placeholder, onImageRemove }) => {
   const editorRef = useRef(null);

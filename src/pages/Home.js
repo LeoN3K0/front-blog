@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@mui/material';
-import { HomeContainer, CardContainer, LeftSection, RightSection, RecentPostTitle, RecentPostContent, RecentPostsList, ListTitle, ListSeparator, RecentPostsListItem, RecentPostsListItemLink, CreateBlogPostButton, ButtonContainer } from '../styledcomps/homeStyles';
+import { HomeContainer, CardContainer, LeftSection, RightSection, RecentPostTitle, RecentPostContent, RecentPostsList, ListTitle, ListSeparator, RecentPostsListItem, RecentPostsListItemLink, CreateBlogPostButton, ButtonContainer } from '../styles/homeStyles';
 import theme from '../themes/theme';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
