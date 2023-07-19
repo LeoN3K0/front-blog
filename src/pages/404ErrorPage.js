@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ErrorContainer, ErrorText, BackButton } from './styledcomps/404Styles';
+import { ErrorContainer, ErrorText, BackButton } from '../styledcomps/404Styles';
 
 const NotFoundPage = () => {
   return (
