@@ -14,7 +14,7 @@ import {
   FormLink,
   ErrorMessage,
   SuccessMessage
-} from './styledcomps/loginStyles';
+} from '../styledcomps/loginStyles';
 
 const Login = () => {
   let navigate = useNavigate();

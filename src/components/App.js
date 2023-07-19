@@ -3,17 +3,17 @@ import { Routes, Route, HashRouter } from "react-router-dom";
 import NavBar from "./NavBar";
 import { ThemeProvider } from "@mui/material";
 import theme from '../themes/theme';
-import Home from './Home';
-import NotFoundPage from "./404ErrorPage";
-import Login from "./Login";
-import Blogs from "./Blogs";
-import CreateBlog from "./CreateBlog";
-import EditBlog from "./EditBlog";
-import BlogPost from "./BlogPost";
-import Profile from "./Profile";
+import Home from '../pages/Home';
+import NotFoundPage from "../pages/404ErrorPage";
+import Login from "../pages/Login";
+import Blogs from "../pages/Blogs";
+import CreateBlog from "../pages/CreateBlog";
+import EditBlog from "../pages/EditBlog";
+import BlogPost from "../pages/BlogPost";
+import Profile from "../pages/Profile";
 import { useAuth } from "../AuthContext";
 import Footer from "./Footer";
-import { StyledAppContainer } from "./styledcomps/appStyles";
+import { StyledAppContainer } from "../styledcomps/appStyles";
 
 function App() {
   const { isLoggedIn } = useAuth();

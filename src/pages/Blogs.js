@@ -14,7 +14,7 @@ import {
   BlogAuthor,
   BlogDate,
   NoBlog,
-} from './styledcomps/blogsStyles';
+} from '../styledcomps/blogsStyles';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);

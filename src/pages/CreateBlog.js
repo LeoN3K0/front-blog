@@ -17,7 +17,7 @@ import {
   PublishButton,
   DeleteButton,
   UploadButton
-} from './styledcomps/createBlogStyles';
+} from '../styledcomps/createBlogStyles';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
